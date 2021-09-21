@@ -21,6 +21,9 @@ jobs:
       - name: Print path
         run: pwd
         
+      - name: Print directory
+        run: ls
+        
       - name: install dependencies    
         run: |
           python3 -m pip install --upgrade pip
