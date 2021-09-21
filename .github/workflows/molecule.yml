@@ -6,30 +6,20 @@ jobs:
   Test_Molecule:
     runs-on: ubuntu-latest
     steps:
-            
+
       - name: Check out repository code
         uses: actions/checkout@v2
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+        
       - name: Set up Python 3.
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+
       - name: Install test dependencies
         run: pip3 install molecule[docker]
-        # run: pip3 install --user molecule[docker]
         
       - name: Install lint
         run: pip3 install "ansible-lint[core,yamllint]"
-        
-      - name: Print path
-        run: pwd
-        
-      - name: Print directory
-        run: ls
-        
-      - name: Print ansible version
-        run: ansible --version
         
       - name: Install ansible community modules
         run: ansible-galaxy collection install community.general
@@ -37,15 +27,10 @@ jobs:
       - name: Install ansible.posix
         run: ansible-galaxy collection install ansible.posix
         
-      - name: Read file .ansible-lint  
-        run: cat .ansible-lint
-        
       - name: install dependencies    
         run: |
           python3 -m pip install --upgrade pip
-       #   python3 -m pip install -r requirements.txt
         
       - name: Molecule converge
         run: |
           molecule converge
-      - run: echo "🍏 This job's status is ${{ job.status }}."
