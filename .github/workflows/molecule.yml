@@ -22,7 +22,7 @@ jobs:
         run: pwd
         
       - name: Print directory
-        run: ls
+        run: ls && la
         
       - name: install dependencies    
         run: |
