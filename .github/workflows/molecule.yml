@@ -22,7 +22,10 @@ jobs:
         run: pwd
         
       - name: Print directory
-        run: ls && la
+        run: ls
+        
+      - name: Read file .ansible-lint  
+        run: cat .ansible-lint.yml
         
       - name: install dependencies    
         run: |
