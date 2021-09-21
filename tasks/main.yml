@@ -1,6 +1,7 @@
   - name: Who am I
     raw: whoami
     register: command_output
+    when: command_output is defined
 
   - name: Print who am I
     ansible.builtin.debug:
