@@ -28,6 +28,9 @@ jobs:
       - name: Print directory
         run: ls
         
+      - name: Print ansible version
+        run: ansible --version
+        
       - name: Read file .ansible-lint  
         run: cat .ansible-lint
         
