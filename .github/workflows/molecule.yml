@@ -44,7 +44,11 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
        #   python3 -m pip install -r requirements.txt
-      - name: Run molecule
+       
+      - name: Molecle converge
+        run: molecule converge
+        
+      - name: Molecule test
         run: |
           molecule test
       - run: echo "🍏 This job's status is ${{ job.status }}."
