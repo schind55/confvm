@@ -1,0 +1,34 @@
+   
+---
+name: Molecule Test
+on: [push, pull_request]
+jobs:
+  Test_Molecule:
+    runs-on: ubuntu-latest
+    env:
+      GIT_CREDENTIALS : https://schind55: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@github.com/
+    steps:
+      - name: Setup git credentials
+        uses: fusion-engineering/setup-git-credentials@v2
+        with:
+          credentials: ${{env.GIT_CREDENTIALS}}
+            
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: Install test dependencies
+        run: pip3 install --user molecule[docker]
+        
+      - name: install dependencies    
+        run: |
+          python3 -m pip install --upgrade pip
+       #   python3 -m pip install -r requirements.txt
+      - name: Run molecule
+        run: |
+          molecule test
+      - run: echo "🍏 This job's status is ${{ job.status }}."
