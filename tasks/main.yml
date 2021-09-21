@@ -1,12 +1,3 @@
-  - name: Who am I
-    raw: whoami
-    register: command_output
-    when: command_output is not defined
-
-  - name: Print who am I
-    ansible.builtin.debug:
-      var: command_output.stdout_lines
-
   - name: print operating system
     ansible.builtin.debug:
       var: ansible_facts['distribution']
@@ -14,6 +5,12 @@
   - name: Update packages Debian
     become: true
     raw: apt-get update
+    when: ansible_facts['os_family'] == "Debian"
+
+  - name: Update packages Debian
+    apt:
+      name: '*'
+      state: latest
     when: ansible_facts['os_family'] == "Debian"
 
   - name: Install ufw
@@ -30,11 +27,7 @@
       enabled: false
     when: ansible_facts['distribution'] == "CentOS"
 
-  # auch os family
-
-
   - name: Register firewall for ubuntu
-    #become: true  ; community.general.
     ufw:
       state: disabled
     when: ansible_facts['distribution'] == "Ubuntu"
@@ -48,7 +41,7 @@
     when: ansible_facts['os_family'] == "RedHat"
 
   - name: Put SELinux in permissive mode centos
-    ansible.posix.selinux:
+    selinux:
       #policy: targeted
       state: disabled
     when: ansible_facts['distribution'] == "CentOS"
