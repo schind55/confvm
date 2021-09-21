@@ -33,8 +33,8 @@
 
 
   - name: Register firewall for ubuntu
-    #become: true
-    community.general.ufw:
+    #become: true  ; community.general.
+    ufw:
       state: disabled
     when: ansible_facts['distribution'] == "Ubuntu"
 
@@ -65,26 +65,15 @@
 
   - name: Disable SWAP RedHat 1/2
     raw: swapoff -a
-    when: ansible_facts['os_family'] == ""
+    when: ansible_facts['os_family'] == "NotDefined"
 
   - name: Disable SWAP RedHat 2/2
     replace:
       path: /etc/fstab
       regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
       replace: '# \1'
-    when: ansible_facts['os_family'] == ""
+    when: ansible_facts['os_family'] == "NotDefined"
 
-  - name: Disable SWAP centos 1
-    shell: |
-      swapoff --all
-    when: ansible_facts['os_family'] == ""
-
-  - name: Disable SWAP centos 2
-    replace:
-      path: /etc/fstab
-      regexp: '^([^#].*?\sswap\s+.*)$'
-      replace: '# \1'
-    when: ansible_facts['os_family'] == ""
 
   - name: ensure net.bridge.bridge-nf-call-ip6tables is set to 1
     sysctl:
