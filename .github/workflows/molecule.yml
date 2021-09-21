@@ -5,13 +5,7 @@ on: [push, pull_request]
 jobs:
   Test_Molecule:
     runs-on: ubuntu-latest
-    env:
-      GIT_CREDENTIALS : https://schind55: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@github.com/
     steps:
-      - name: Setup git credentials
-        uses: fusion-engineering/setup-git-credentials@v2
-        with:
-          credentials: ${{env.GIT_CREDENTIALS}}
             
       - name: Check out repository code
         uses: actions/checkout@v2
