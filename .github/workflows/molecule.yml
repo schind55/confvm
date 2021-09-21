@@ -18,6 +18,9 @@ jobs:
       - name: Install test dependencies
         run: pip3 install --user molecule[docker]
         
+      - name: Print path
+        run: pwd
+        
       - name: install dependencies    
         run: |
           python3 -m pip install --upgrade pip
