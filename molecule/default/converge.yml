@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include confvm"
+      include_role:
+        name: "confvm"
